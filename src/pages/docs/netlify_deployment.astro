@@ -1,0 +1,165 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const headings = [
+    { depth: 2, slug: "prerequisites", text: "Prerequisites" },
+    {
+        depth: 2,
+        slug: "option-1-deploy-via-git-integration",
+        text: "Option 1: Deploy via Git Integration",
+    },
+    {
+        depth: 2,
+        slug: "option-2-deploy-via-netlify-cli",
+        text: "Option 2: Deploy via Netlify CLI",
+    },
+    { depth: 2, slug: "configuration", text: "Configuration" },
+    { depth: 2, slug: "troubleshooting", text: "Troubleshooting" },
+    { depth: 2, slug: "notes", text: "Notes" },
+];
+---
+
+<DocsLayout title="Deploying to Netlify" headings={headings}>
+    <h1>Deploying Snakeskin Projects to Netlify</h1>
+
+    <p>This guide explains how to deploy a Snakeskin project to Netlify.</p>
+
+    <h2 id="prerequisites">Prerequisites</h2>
+
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>
+            A Snakeskin project that builds successfully with <code
+                >snakeskin build</code>
+        </li>
+        <li>
+            A <a
+                href="https://netlify.com"
+                class="text-accent-primary hover:underline"
+                target="_blank">Netlify</a
+            > account
+        </li>
+        <li>
+            <a
+                href="https://docs.netlify.com/cli/get-started/"
+                class="text-accent-primary hover:underline"
+                target="_blank">Netlify CLI</a
+            > installed (optional)
+        </li>
+    </ol>
+
+    <h2 id="option-1-deploy-via-git-integration">
+        Option 1: Deploy via Git Integration
+    </h2>
+
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Push your Snakeskin project to GitHub, GitLab, or Bitbucket</li>
+        <li>Log in to your Netlify account</li>
+        <li>Click "New site from Git"</li>
+        <li>Select your repository</li>
+        <li>
+            Configure the build settings:
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+                <li>
+                    Build Command: <code
+                        >pip install snakeskin-xplnhub && snakeskin build</code>
+                </li>
+                <li>Publish Directory: <code>dist</code></li>
+            </ul>
+        </li>
+        <li>Click "Deploy site"</li>
+    </ol>
+
+    <h2 id="option-2-deploy-via-netlify-cli">
+        Option 2: Deploy via Netlify CLI
+    </h2>
+
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Install Netlify CLI:</li>
+    </ol>
+
+    <CodeBlock code="npm install -g netlify-cli" language="bash" />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Log in to Netlify:</li>
+    </ol>
+
+    <CodeBlock code="netlify login" language="bash" />
+
+    <ol start="3" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Navigate to your Snakeskin project directory:</li>
+    </ol>
+
+    <CodeBlock code="cd my-snakeskin-project" language="bash" />
+
+    <ol start="4" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Initialize Netlify:</li>
+    </ol>
+
+    <CodeBlock code="netlify init" language="bash" />
+
+    <ol start="5" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Deploy to Netlify:</li>
+    </ol>
+
+    <CodeBlock code="netlify deploy --prod" language="bash" />
+
+    <h2 id="configuration">Configuration</h2>
+
+    <p>
+        The <code>netlify.toml</code> file in your project configures how Netlify
+        builds and serves your project:
+    </p>
+
+    <CodeBlock
+        code={`[build]
+  publish = "dist"
+  command = "pip install snakeskin-xplnhub && snakeskin build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200`}
+        language="toml"
+    />
+
+    <h2 id="troubleshooting">Troubleshooting</h2>
+
+    <ul class="list-disc pl-6 space-y-2 text-neutral-300">
+        <li>
+            <strong>Build Environment</strong>: Netlify uses a Linux
+            environment, so ensure your build works on Linux
+        </li>
+        <li>
+            <strong>Python Version</strong>: Specify the Python version in a <code
+                >runtime.txt</code
+            > file if needed
+        </li>
+        <li>
+            <strong>Dependencies</strong>: Add any Python dependencies to a <code
+                >requirements.txt</code
+            > file
+        </li>
+        <li>
+            <strong>Build Timeout</strong>: If your build takes too long,
+            optimize it or increase the build timeout in Netlify settings
+        </li>
+    </ul>
+
+    <h2 id="notes">Notes</h2>
+
+    <ul class="list-disc pl-6 space-y-2 text-neutral-300">
+        <li>
+            Netlify primarily supports JavaScript frameworks, so you're using it
+            as a static file host
+        </li>
+        <li>
+            The build process runs <code>snakeskin build</code> to generate static
+            files
+        </li>
+        <li>
+            For more complex setups, consider using Netlify Functions to run
+            serverless Python code
+        </li>
+    </ul>
+</DocsLayout>

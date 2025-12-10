@@ -1,0 +1,681 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const headings = [
+    { depth: 2, slug: "installation-issues", text: "Installation Issues" },
+    { depth: 3, slug: "package-not-found", text: "Package Not Found" },
+    { depth: 3, slug: "version-conflicts", text: "Version Conflicts" },
+    { depth: 2, slug: "cli-issues", text: "CLI Issues" },
+    { depth: 3, slug: "command-not-found", text: "Command Not Found" },
+    {
+        depth: 3,
+        slug: "project-creation-fails",
+        text: "Project Creation Fails",
+    },
+    {
+        depth: 2,
+        slug: "development-server-issues",
+        text: "Development Server Issues",
+    },
+    { depth: 3, slug: "server-wont-start", text: "Server Won't Start" },
+    {
+        depth: 3,
+        slug: "hot-reload-not-working",
+        text: "Hot Reload Not Working",
+    },
+    { depth: 2, slug: "tailwind-css-issues", text: "Tailwind CSS Issues" },
+    {
+        depth: 3,
+        slug: "tailwind-classes-not-applied",
+        text: "Tailwind Classes Not Applied",
+    },
+    {
+        depth: 3,
+        slug: "custom-tailwind-configuration-not-working",
+        text: "Custom Tailwind Configuration Not Working",
+    },
+    { depth: 2, slug: "bootstrap-issues", text: "Bootstrap Issues" },
+    {
+        depth: 3,
+        slug: "bootstrap-styles-not-applied",
+        text: "Bootstrap Styles Not Applied",
+    },
+    {
+        depth: 3,
+        slug: "bootstrap-javascript-not-working",
+        text: "Bootstrap JavaScript Not Working",
+    },
+    { depth: 2, slug: "component-issues", text: "Component Issues" },
+    {
+        depth: 3,
+        slug: "component-not-rendering",
+        text: "Component Not Rendering",
+    },
+    {
+        depth: 3,
+        slug: "state-updates-not-working",
+        text: "State Updates Not Working",
+    },
+    { depth: 2, slug: "build-issues", text: "Build Issues" },
+    { depth: 3, slug: "build-fails", text: "Build Fails" },
+    {
+        depth: 3,
+        slug: "missing-files-in-build",
+        text: "Missing Files in Build",
+    },
+    { depth: 2, slug: "common-error-messages", text: "Common Error Messages" },
+    {
+        depth: 3,
+        slug: "no-module-named-snakeskin",
+        text: "\"No module named 'snakeskin'\"",
+    },
+    {
+        depth: 3,
+        slug: "component-must-define-render-method",
+        text: '"Component must define render() method"',
+    },
+    {
+        depth: 3,
+        slug: "typeerror-nonetype-object-is-not-callable",
+        text: "\"TypeError: 'NoneType' object is not callable\"",
+    },
+    {
+        depth: 2,
+        slug: "advanced-troubleshooting",
+        text: "Advanced Troubleshooting",
+    },
+    { depth: 3, slug: "debugging-components", text: "Debugging Components" },
+    { depth: 3, slug: "performance-issues", text: "Performance Issues" },
+    { depth: 2, slug: "getting-help", text: "Getting Help" },
+];
+---
+
+<DocsLayout title="Troubleshooting Guide" headings={headings}>
+    <h1>Troubleshooting Guide</h1>
+
+    <p>This guide helps you solve common issues with Snakeskin.</p>
+
+    <h2 id="installation-issues">Installation Issues</h2>
+
+    <h3 id="package-not-found">Package Not Found</h3>
+
+    <p>
+        <strong>Problem</strong>: <code>pip install snakeskin-xplnhub</code> fails
+        with "Package not found" error.
+    </p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Make sure you're using the correct package name:</li>
+    </ol>
+
+    <CodeBlock code="pip install snakeskin-xplnhub" language="bash" />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>If that doesn't work, try installing from GitHub:</li>
+    </ol>
+
+    <CodeBlock
+        code="pip install git+https://github.com/XplnHUB/xplnhub-snakeskin.git"
+        language="bash"
+    />
+
+    <h3 id="version-conflicts">Version Conflicts</h3>
+
+    <p><strong>Problem</strong>: Dependencies have version conflicts.</p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Create a virtual environment:</li>
+    </ol>
+
+    <CodeBlock
+        code="python -m venv venv\nsource venv/bin/activate  # On Windows: venv\Scripts\activate"
+        language="bash"
+    />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Install Snakeskin in the virtual environment:</li>
+    </ol>
+
+    <CodeBlock code="pip install snakeskin-xplnhub" language="bash" />
+
+    <h2 id="cli-issues">CLI Issues</h2>
+
+    <h3 id="command-not-found">Command Not Found</h3>
+
+    <p>
+        <strong>Problem</strong>: <code>snakeskin</code> command not found after installation.
+    </p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Make sure the package is installed:</li>
+    </ol>
+
+    <CodeBlock code="pip show snakeskin-xplnhub" language="bash" />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if the script is in your PATH:</li>
+    </ol>
+
+    <CodeBlock
+        code="which snakeskin  # On Windows: where snakeskin"
+        language="bash"
+    />
+
+    <ol start="3" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Try reinstalling with:</li>
+    </ol>
+
+    <CodeBlock
+        code="pip install --force-reinstall snakeskin-xplnhub"
+        language="bash"
+    />
+
+    <h3 id="project-creation-fails">Project Creation Fails</h3>
+
+    <p>
+        <strong>Problem</strong>: <code>snakeskin create my-project</code> fails.
+    </p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if the directory already exists and remove it:</li>
+    </ol>
+
+    <CodeBlock code="rm -rf my-project" language="bash" />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check permissions:</li>
+    </ol>
+
+    <CodeBlock code="mkdir test-dir && rm -rf test-dir" language="bash" />
+
+    <ol start="3" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Run with verbose output:</li>
+    </ol>
+
+    <CodeBlock code="snakeskin create my-project --verbose" language="bash" />
+
+    <h2 id="development-server-issues">Development Server Issues</h2>
+
+    <h3 id="server-wont-start">Server Won't Start</h3>
+
+    <p>
+        <strong>Problem</strong>: <code>snakeskin dev</code> fails to start the server.
+    </p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if port 3000 is already in use:</li>
+    </ol>
+
+    <CodeBlock
+        code="lsof -i :3000  # On Windows: netstat -ano | findstr :3000"
+        language="bash"
+    />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Kill the process using that port:</li>
+    </ol>
+
+    <CodeBlock
+        code="kill -9 <PID>  # On Windows: taskkill /F /PID <PID>"
+        language="bash"
+    />
+
+    <ol start="3" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Try a different port:</li>
+    </ol>
+
+    <CodeBlock
+        code="# Edit server.py to use a different port\n# Change PORT = 3000 to PORT = 3001"
+        language="bash"
+    />
+
+    <h3 id="hot-reload-not-working">Hot Reload Not Working</h3>
+
+    <p><strong>Problem</strong>: Changes to files don't trigger hot reload.</p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Make sure WebSockets are installed:</li>
+    </ol>
+
+    <CodeBlock code="pip install websockets" language="bash" />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if file watching is working:</li>
+    </ol>
+
+    <CodeBlock code="# Create a test file\ntouch src/test.py" language="bash" />
+
+    <ol start="3" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Restart the development server:</li>
+    </ol>
+
+    <CodeBlock code="snakeskin dev" language="bash" />
+
+    <ol start="4" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check browser console for WebSocket errors</li>
+    </ol>
+
+    <h2 id="tailwind-css-issues">Tailwind CSS Issues</h2>
+
+    <h3 id="tailwind-classes-not-applied">Tailwind Classes Not Applied</h3>
+
+    <p>
+        <strong>Problem</strong>: Tailwind CSS classes are not being applied to
+        elements.
+    </p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if Tailwind CSS is being built:</li>
+    </ol>
+
+    <CodeBlock code="ls -la dist/tailwind.css" language="bash" />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Make sure the CSS file is included in your HTML:</li>
+    </ol>
+
+    <CodeBlock
+        code='<link href="tailwind.css" rel="stylesheet">'
+        language="html"
+    />
+
+    <ol start="3" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if your HTML elements have the correct classes:</li>
+    </ol>
+
+    <CodeBlock
+        code='<div class="bg-blue-500">This should be blue</div>'
+        language="html"
+    />
+
+    <ol start="4" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Rebuild Tailwind CSS manually:</li>
+    </ol>
+
+    <CodeBlock
+        code="npx tailwindcss -i ./input.css -o ./dist/tailwind.css"
+        language="bash"
+    />
+
+    <h3 id="custom-tailwind-configuration-not-working">
+        Custom Tailwind Configuration Not Working
+    </h3>
+
+    <p>
+        <strong>Problem</strong>: Custom Tailwind configuration is not being
+        applied.
+    </p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check your <code>tailwind.config.js</code> file:</li>
+    </ol>
+
+    <CodeBlock
+        code={`module.exports = {
+  content: ["./src/components/**/*.py", "./main.py"],
+  theme: {
+    extend: {
+      // Your custom configuration
+    },
+  },
+  plugins: [],
+};`}
+        language="javascript"
+    />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Make sure the content paths are correct</li>
+        <li>Rebuild Tailwind CSS:</li>
+    </ol>
+
+    <CodeBlock
+        code="npx tailwindcss -i ./input.css -o ./dist/tailwind.css"
+        language="bash"
+    />
+
+    <h2 id="bootstrap-issues">Bootstrap Issues</h2>
+
+    <h3 id="bootstrap-styles-not-applied">Bootstrap Styles Not Applied</h3>
+
+    <p><strong>Problem</strong>: Bootstrap styles are not being applied.</p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if Bootstrap is included in your HTML:</li>
+    </ol>
+
+    <CodeBlock
+        code={`<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>`}
+        language="html"
+    />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Use the <code>BootstrapIntegration</code> helper:</li>
+    </ol>
+
+    <CodeBlock
+        code={`from snakeskin import BootstrapIntegration
+
+html_content = """<!DOCTYPE html><html>...</html>"""
+html_content = BootstrapIntegration.include_in_template(html_content, "both")`}
+        language="python"
+    />
+
+    <h3 id="bootstrap-javascript-not-working">
+        Bootstrap JavaScript Not Working
+    </h3>
+
+    <p>
+        <strong>Problem</strong>: Bootstrap JavaScript components (dropdowns,
+        modals, etc.) don't work.
+    </p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Make sure the Bootstrap JavaScript is included:</li>
+    </ol>
+
+    <CodeBlock
+        code='<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>'
+        language="html"
+    />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Initialize Bootstrap components manually:</li>
+    </ol>
+
+    <CodeBlock
+        code={`<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  });
+</script>`}
+        language="html"
+    />
+
+    <h2 id="component-issues">Component Issues</h2>
+
+    <h3 id="component-not-rendering">Component Not Rendering</h3>
+
+    <p>
+        <strong>Problem</strong>: Component is not rendering or renders
+        incorrectly.
+    </p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if the <code>render()</code> method is implemented:</li>
+    </ol>
+
+    <CodeBlock
+        code={`def render(self):
+    return "<div>My Component</div>"`}
+        language="python"
+    />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check for syntax errors in the HTML string:</li>
+    </ol>
+
+    <CodeBlock
+        code={`def render(self):
+    # Correct
+    return """
+    <div>
+        <h1>Title</h1>
+        <p>Content</p>
+    </div>
+    """`}
+        language="python"
+    />
+
+    <ol start="3" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Print the rendered HTML for debugging:</li>
+    </ol>
+
+    <CodeBlock
+        code={`html = component.render()
+print(html)`}
+        language="python"
+    />
+
+    <h3 id="state-updates-not-working">State Updates Not Working</h3>
+
+    <p>
+        <strong>Problem</strong>: Component state updates don't trigger
+        re-renders.
+    </p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>
+            Make sure you're using <code>set_state()</code> to update state:
+        </li>
+    </ol>
+
+    <CodeBlock
+        code={`# Correct
+self.set_state({"count": self.state["count"] + 1})
+
+# Incorrect
+self.state["count"] += 1`}
+        language="python"
+    />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if observers are registered:</li>
+    </ol>
+
+    <CodeBlock
+        code={`def __init__(self, **props):
+    super().__init__(**props)
+    self.observe(self.on_state_change)
+
+def on_state_change(self, state):
+    print(f"State changed: {state}")`}
+        language="python"
+    />
+
+    <h2 id="build-issues">Build Issues</h2>
+
+    <h3 id="build-fails">Build Fails</h3>
+
+    <p><strong>Problem</strong>: <code>snakeskin build</code> fails.</p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check for errors in your components:</li>
+    </ol>
+
+    <CodeBlock
+        code="python -m py_compile src/components/*.py"
+        language="bash"
+    />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if <code>main.py</code> exists and is correct:</li>
+    </ol>
+
+    <CodeBlock code="python -m py_compile main.py" language="bash" />
+
+    <ol start="3" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Run with verbose output:</li>
+    </ol>
+
+    <CodeBlock code="snakeskin build --verbose" language="bash" />
+
+    <h3 id="missing-files-in-build">Missing Files in Build</h3>
+
+    <p><strong>Problem</strong>: Some files are missing in the build output.</p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if all files are being copied:</li>
+    </ol>
+
+    <CodeBlock
+        code={`# In utils.py, add logging
+print(f"Copying {src} to {dest}")`}
+        language="python"
+    />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Manually copy missing files:</li>
+    </ol>
+
+    <CodeBlock code="cp src/assets/* dist/assets/" language="bash" />
+
+    <h2 id="common-error-messages">Common Error Messages</h2>
+
+    <h3 id="no-module-named-snakeskin">"No module named 'snakeskin'"</h3>
+
+    <p><strong>Problem</strong>: Python can't find the snakeskin module.</p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if the package is installed:</li>
+    </ol>
+
+    <CodeBlock code="pip show snakeskin-xplnhub" language="bash" />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check your import statements:</li>
+    </ol>
+
+    <CodeBlock
+        code={`# Correct
+from snakeskin.framework import Component`}
+        language="python"
+    />
+
+    <h3 id="component-must-define-render-method">
+        "Component must define render() method"
+    </h3>
+
+    <p>
+        <strong>Problem</strong>: You're using a component that doesn't have a
+        render method.
+    </p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Implement the <code>render()</code> method:</li>
+    </ol>
+
+    <CodeBlock
+        code={`class MyComponent(Component):
+    def render(self):
+        return "<div>My Component</div>"`}
+        language="python"
+    />
+
+    <h3 id="typeerror-nonetype-object-is-not-callable">
+        "TypeError: 'NoneType' object is not callable"
+    </h3>
+
+    <p>
+        <strong>Problem</strong>: You're trying to call a method that doesn't
+        exist.
+    </p>
+
+    <p><strong>Solution</strong>:</p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Check if the method exists:</li>
+    </ol>
+
+    <CodeBlock
+        code={`# Check if on_click is a callable function
+on_click = self.props.get("on_click")
+if callable(on_click):
+    on_click()`}
+        language="python"
+    />
+
+    <h2 id="advanced-troubleshooting">Advanced Troubleshooting</h2>
+
+    <h3 id="debugging-components">Debugging Components</h3>
+
+    <CodeBlock
+        code={`class DebugComponent(Component):
+    def __init__(self, **props):
+        super().__init__(**props)
+        self.debug = props.get("debug", False)
+    
+    def log(self, message):
+        if self.debug:
+            print(f"[DEBUG] {self.__class__.__name__}: {message}")
+    
+    def set_state(self, new_state):
+        self.log(f"State update: {new_state}")
+        return super().set_state(new_state)
+    
+    def render(self):
+        self.log("Rendering component")
+        html = "<div>Debug Component</div>"
+        self.log(f"Rendered HTML: {html}")
+        return html`}
+        language="python"
+    />
+
+    <h3 id="performance-issues">Performance Issues</h3>
+
+    <p>If your application is slow:</p>
+
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Minimize state updates</li>
+        <li>Use smaller components</li>
+        <li>Avoid deep nesting of components</li>
+        <li>Profile your Python code:</li>
+    </ol>
+
+    <CodeBlock
+        code="python -m cProfile -o profile.pstats main.py"
+        language="bash"
+    />
+
+    <ol start="5" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Analyze the profile:</li>
+    </ol>
+
+    <CodeBlock
+        code={`python -c "import pstats; p = pstats.Stats('profile.pstats'); p.sort_stats('cumulative').print_stats(30)"`}
+        language="bash"
+    />
+
+    <h2 id="getting-help">Getting Help</h2>
+
+    <p>If you're still having issues:</p>
+
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>
+            Check the <a
+                href="https://github.com/XplnHUB/xplnhub-snakeskin"
+                class="text-accent-primary hover:underline"
+                target="_blank">GitHub repository</a
+            > for known issues
+        </li>
+
+        <li>
+            Open an issue on GitHub with:
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+                <li>A minimal reproducible example</li>
+                <li>Your environment information</li>
+                <li>Error messages and logs</li>
+            </ul>
+        </li>
+    </ol>
+</DocsLayout>

@@ -1,0 +1,162 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const headings = [
+    { depth: 2, slug: "prerequisites", text: "Prerequisites" },
+    {
+        depth: 2,
+        slug: "option-1-deploy-via-git-integration",
+        text: "Option 1: Deploy via Git Integration",
+    },
+    {
+        depth: 2,
+        slug: "option-2-deploy-via-vercel-cli",
+        text: "Option 2: Deploy via Vercel CLI",
+    },
+    { depth: 2, slug: "configuration", text: "Configuration" },
+    { depth: 2, slug: "troubleshooting", text: "Troubleshooting" },
+    { depth: 2, slug: "notes", text: "Notes" },
+];
+---
+
+<DocsLayout title="Deploying to Vercel" headings={headings}>
+    <h1>Deploying Snakeskin Projects to Vercel</h1>
+
+    <p>This guide explains how to deploy a Snakeskin project to Vercel.</p>
+
+    <h2 id="prerequisites">Prerequisites</h2>
+
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>
+            A Snakeskin project that builds successfully with <code
+                >snakeskin build</code>
+        </li>
+        <li>
+            A <a
+                href="https://vercel.com"
+                class="text-accent-primary hover:underline"
+                target="_blank">Vercel</a
+            > account
+        </li>
+        <li>
+            <a
+                href="https://vercel.com/docs/cli"
+                class="text-accent-primary hover:underline"
+                target="_blank">Vercel CLI</a
+            > installed (optional)
+        </li>
+    </ol>
+
+    <h2 id="option-1-deploy-via-git-integration">
+        Option 1: Deploy via Git Integration
+    </h2>
+
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Push your Snakeskin project to GitHub, GitLab, or Bitbucket</li>
+        <li>Log in to your Vercel account</li>
+        <li>Click "New Project"</li>
+        <li>Import your repository</li>
+        <li>
+            Configure the project:
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+                <li>
+                    Build Command: <code
+                        >pip install snakeskin-xplnhub && snakeskin build</code>
+                </li>
+                <li>Output Directory: <code>dist</code></li>
+            </ul>
+        </li>
+        <li>Click "Deploy"</li>
+    </ol>
+
+    <h2 id="option-2-deploy-via-vercel-cli">Option 2: Deploy via Vercel CLI</h2>
+
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Install Vercel CLI:</li>
+    </ol>
+
+    <CodeBlock code="npm i -g vercel" language="bash" />
+
+    <ol start="2" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Log in to Vercel:</li>
+    </ol>
+
+    <CodeBlock code="vercel login" language="bash" />
+
+    <ol start="3" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Navigate to your Snakeskin project directory:</li>
+    </ol>
+
+    <CodeBlock code="cd my-snakeskin-project" language="bash" />
+
+    <ol start="4" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Deploy to Vercel:</li>
+    </ol>
+
+    <CodeBlock code="vercel" language="bash" />
+
+    <ol start="5" class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Follow the prompts to configure your deployment</li>
+    </ol>
+
+    <h2 id="configuration">Configuration</h2>
+
+    <p>
+        The <code>vercel.json</code> file in your project configures how Vercel builds
+        and serves your project:
+    </p>
+
+    <CodeBlock
+        code={`{
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/dist/index.html" }
+  ],
+  "buildCommand": "snakeskin build"
+}`}
+        language="json"
+    />
+
+    <h2 id="troubleshooting">Troubleshooting</h2>
+
+    <ul class="list-disc pl-6 space-y-2 text-neutral-300">
+        <li>
+            <strong>Build Fails</strong>: Make sure your project builds locally
+            with <code>snakeskin build</code>
+        </li>
+        <li>
+            <strong>Missing Dependencies</strong>: Add any Python dependencies
+            to a <code>requirements.txt</code> file
+        </li>
+        <li>
+            <strong>404 Errors</strong>: Check that your routes in <code
+                >vercel.json</code
+            > are correctly configured
+        </li>
+    </ul>
+
+    <h2 id="notes">Notes</h2>
+
+    <ul class="list-disc pl-6 space-y-2 text-neutral-300">
+        <li>
+            Vercel primarily supports JavaScript frameworks, so you're using it
+            as a static file host
+        </li>
+        <li>
+            The build process runs <code>snakeskin build</code> to generate static
+            files
+        </li>
+        <li>
+            For more complex setups, consider using a serverless function to run
+            Python code
+        </li>
+    </ul>
+</DocsLayout>

@@ -1,0 +1,60 @@
+---
+import { Box, Zap, Palette, Flame, Wrench, Bot } from "lucide-astro";
+
+const features = [
+  {
+    Icon: Box,
+    title: "Component-Based",
+    description: "Build encapsulated UI blocks that manage their own state.",
+  },
+  {
+    Icon: Zap,
+    title: "Reactive State",
+    description: "UI updates automatically when your data changes.",
+  },
+  {
+    Icon: Palette,
+    title: "Tailwind Integration",
+    description: "Built-in support for utility-first styling.",
+  },
+  {
+    Icon: Flame,
+    title: "Hot Reload",
+    description: "Instant feedback with a lightning-fast dev server.",
+  },
+  {
+    Icon: Wrench,
+    title: "CLI Tooling",
+    description: "Generators, linters, and builders out of the box.",
+  },
+  {
+    Icon: Bot,
+    title: "AI & Backend",
+    description: "Direct LLM integration and server-side logic in one place.",
+  },
+];
+---
+
+<section class="py-24 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        features.map((feature, index) => (
+          <div
+            class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-neon-green/50 transition-all duration-300 group hover:-translate-y-1 hover:shadow-[0_0_30px_-10px_rgba(0,255,157,0.1)]"
+            style={`animation: fadeInUp 0.5s ease-out forwards ${index * 0.1}s; opacity: 0;`}
+          >
+            <div class="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300 text-neon-green">
+              <feature.Icon size={40} strokeWidth={1.5} />
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-neon-green transition-colors">
+              {feature.title}
+            </h3>
+
+            <p class="text-slate-400 leading-relaxed">{feature.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

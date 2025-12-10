@@ -1,0 +1,47 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const headings = [
+    { depth: 2, slug: "global-commands", text: "Global Commands" },
+    { depth: 3, slug: "init-create", text: "init / create" },
+    { depth: 3, slug: "dev", text: "dev" },
+    { depth: 3, slug: "build", text: "build" },
+    { depth: 3, slug: "generate", text: "generate" },
+];
+---
+
+<DocsLayout title="CLI Reference" headings={headings}>
+    <h1>CLI Reference</h1>
+
+    <p>
+        The <code>snakeskin</code> command-line interface provides tools to scaffold,
+        build, and serve your application.
+    </p>
+
+    <h2 id="global-commands">Global Commands</h2>
+
+    <h3 id="init-create"><code>init</code> / <code>create</code></h3>
+    <p>Creates a new Snakeskin project.</p>
+
+    <p><strong>Usage:</strong></p>
+    <CodeBlock code="snakeskin create <project-name>" language="bash" />
+
+    <h3 id="dev"><code>dev</code></h3>
+    <p>Starts the development server with hot-module replacement.</p>
+
+    <p><strong>Usage:</strong></p>
+    <CodeBlock code="snakeskin dev [--port 3000]" language="bash" />
+
+    <h3 id="build"><code>build</code></h3>
+    <p>Compiles the application for production deployment.</p>
+
+    <p><strong>Usage:</strong></p>
+    <CodeBlock code="snakeskin build [--out-dir dist]" language="bash" />
+
+    <h3 id="generate"><code>generate</code></h3>
+    <p>Generates a new component file.</p>
+
+    <p><strong>Usage:</strong></p>
+    <CodeBlock code="snakeskin generate component <Name>" language="bash" />
+</DocsLayout>

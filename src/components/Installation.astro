@@ -1,0 +1,197 @@
+---
+import { Check } from "lucide-astro";
+---
+
+<section
+    class="py-24 bg-gradient-to-b from-black to-slate-900 border-t border-white/5"
+>
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-4xl font-bold text-white mb-6">
+            Get started in seconds
+        </h2>
+        <div class="relative group max-w-lg mx-auto mb-16">
+            <div
+                class="absolute -inset-1 bg-gradient-to-r from-neon-green to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"
+            >
+            </div>
+            <div
+                class="relative flex items-center bg-black border border-white/10 rounded-lg p-4 shadow-2xl overflow-hidden"
+            >
+                <span class="text-neon-green mr-4 select-none">$</span>
+                <div
+                    class="flex-1 text-left font-mono text-lg overflow-hidden whitespace-nowrap relative"
+                >
+                    <span id="typewriter-text" class="text-white"></span><span
+                        class="animate-pulse text-neon-green">_</span
+                    >
+                </div>
+                <button
+                    id="copy-btn"
+                    class="group text-slate-500 hover:text-white transition-colors relative"
+                    aria-label="Copy"
+                >
+                    <div
+                        class="absolute inset-0 transition-all duration-300 scale-100 opacity-100"
+                        id="copy-icon"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="w-5 h-5"
+                        >
+                            <rect
+                                width="14"
+                                height="14"
+                                x="8"
+                                y="8"
+                                rx="2"
+                                ry="2"
+                                class="transition-transform duration-300 group-hover:translate-x-[1px] group-hover:translate-y-[1px]"
+                            ></rect>
+                            <path
+                                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                class="transition-transform duration-300 group-hover:-translate-x-[1px] group-hover:-translate-y-[1px]"
+                            ></path>
+                        </svg>
+                    </div>
+                    <div
+                        class="absolute inset-0 transition-all duration-300 scale-0 opacity-0 text-neon-green"
+                        id="check-icon"
+                    >
+                        <Check class="w-5 h-5" />
+                    </div>
+                    <div class="w-5 h-5"></div>
+                    <!-- Spacer -->
+                </button>
+            </div>
+        </div>
+
+        <script>
+            const text = "pip install snakeskin-xplnhub";
+            const typewriterElement =
+                document.getElementById("typewriter-text");
+            let index = 0;
+
+            function type() {
+                if (typewriterElement && index < text.length) {
+                    typewriterElement.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, 50 + Math.random() * 50); // Random typing speed
+                }
+            }
+
+            // Start typing when element is in view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && typewriterElement) {
+                        // Reset and start
+                        typewriterElement.textContent = "";
+                        index = 0;
+                        setTimeout(type, 500);
+                        observer.disconnect();
+                    }
+                });
+            });
+
+            if (typewriterElement) {
+                observer.observe(typewriterElement);
+            }
+
+            // Copy functionality
+            const copyBtn = document.getElementById("copy-btn");
+            const copyIcon = document.getElementById("copy-icon");
+            const checkIcon = document.getElementById("check-icon");
+
+            if (copyBtn && copyIcon && checkIcon) {
+                copyBtn.addEventListener("click", async () => {
+                    await navigator.clipboard.writeText(text);
+
+                    // Show check icon
+                    copyIcon.classList.add("scale-0", "opacity-0");
+                    checkIcon.classList.remove("scale-0", "opacity-0");
+                    checkIcon.classList.add("scale-100", "opacity-100");
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        checkIcon.classList.remove("scale-100", "opacity-100");
+                        checkIcon.classList.add("scale-0", "opacity-0");
+                        copyIcon.classList.remove("scale-0", "opacity-0");
+                        copyIcon.classList.add("scale-100", "opacity-100");
+                    }, 2000);
+                });
+            }
+        </script>
+
+        <h3 class="text-2xl font-bold text-white mb-8">CLI Commands</h3>
+        <div
+            class="overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left"
+        >
+            <table class="w-full text-sm">
+                <thead class="bg-black/50">
+                    <tr>
+                        <th class="px-6 py-4 font-medium text-slate-300"
+                            >Command</th
+                        >
+                        <th class="px-6 py-4 font-medium text-slate-300"
+                            >Usage</th
+                        >
+                        <th class="px-6 py-4 font-medium text-slate-300"
+                            >Description</th
+                        >
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    <tr class="hover:bg-white/5 transition-colors">
+                        <td class="px-6 py-4 font-mono text-neon-green"
+                            >create</td
+                        >
+                        <td class="px-6 py-4 font-mono text-slate-400"
+                            >snakeskin create my-app</td
+                        >
+                        <td class="px-6 py-4 text-slate-300"
+                            >Scaffolds a new project.</td
+                        >
+                    </tr>
+                    <tr class="hover:bg-white/5 transition-colors">
+                        <td class="px-6 py-4 font-mono text-neon-green">dev</td>
+                        <td class="px-6 py-4 font-mono text-slate-400"
+                            >snakeskin dev</td
+                        >
+                        <td class="px-6 py-4 text-slate-300"
+                            >Starts the hot-reload development server.</td
+                        >
+                    </tr>
+                    <tr class="hover:bg-white/5 transition-colors">
+                        <td class="px-6 py-4 font-mono text-neon-green"
+                            >generate</td
+                        >
+                        <td class="px-6 py-4 font-mono text-slate-400"
+                            >snakeskin generate component</td
+                        >
+                        <td class="px-6 py-4 text-slate-300"
+                            >Creates new component files.</td
+                        >
+                    </tr>
+                    <tr class="hover:bg-white/5 transition-colors">
+                        <td class="px-6 py-4 font-mono text-neon-green"
+                            >build</td
+                        >
+                        <td class="px-6 py-4 font-mono text-slate-400"
+                            >snakeskin build</td
+                        >
+                        <td class="px-6 py-4 text-slate-300"
+                            >Compiles for production.</td
+                        >
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

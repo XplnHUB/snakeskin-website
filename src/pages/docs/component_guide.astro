@@ -1,0 +1,388 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const headings = [
+    { depth: 2, slug: "component-basics", text: "Component Basics" },
+    { depth: 2, slug: "props", text: "Props" },
+    { depth: 2, slug: "state-management", text: "State Management" },
+    { depth: 2, slug: "lifecycle-hooks", text: "Lifecycle Hooks" },
+    { depth: 2, slug: "event-handling", text: "Event Handling" },
+    { depth: 2, slug: "component-composition", text: "Component Composition" },
+    {
+        depth: 2,
+        slug: "observers-and-reactivity",
+        text: "Observers and Reactivity",
+    },
+    { depth: 2, slug: "best-practices", text: "Best Practices" },
+    { depth: 2, slug: "advanced-techniques", text: "Advanced Techniques" },
+];
+---
+
+<DocsLayout title="Component Development Guide" headings={headings}>
+    <h1>Component Development Guide</h1>
+
+    <p>This guide explains how to create and use components in Snakeskin.</p>
+
+    <h2 id="component-basics">Component Basics</h2>
+
+    <p>
+        Components are the building blocks of your Snakeskin application. Each
+        component:
+    </p>
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>Inherits from the <code>Component</code> base class</li>
+        <li>Has its own state and props</li>
+        <li>Implements a <code>render()</code> method that returns HTML</li>
+    </ol>
+
+    <p>Here's a basic component:</p>
+
+    <CodeBlock
+        code={`from snakeskin.framework import Component
+
+class HelloWorld(Component):
+    def render(self):
+        return """
+        <div>
+            <h1>Hello, World!</h1>
+        </div>
+        """`}
+        language="python"
+    />
+
+    <h2 id="props">Props</h2>
+
+    <p>Props are properties passed to a component when it's created:</p>
+
+    <CodeBlock
+        code={`from snakeskin.framework import Component
+
+class Greeting(Component):
+    def render(self):
+        name = self.props.get("name", "World")
+        return f"""
+        <div>
+            <h1>Hello, {name}!</h1>
+        </div>
+        """
+
+# Usage
+greeting = Greeting(name="John")
+html = greeting.render()  # Renders "Hello, John!"`}
+        language="python"
+    />
+
+    <h2 id="state-management">State Management</h2>
+
+    <p>Components can maintain internal state that can change over time:</p>
+
+    <CodeBlock
+        code={`from snakeskin.framework import Component
+
+class Counter(Component):
+    def __init__(self, **props):
+        super().__init__(**props)
+        self.state = {"count": 0}
+    
+    def increment(self):
+        self.set_state({"count": self.state["count"] + 1})
+    
+    def render(self):
+        return f"""
+        <div>
+            <p>Count: {self.state["count"]}</p>
+            <button onclick="increment_{id(self)}()">Increment</button>
+            <script>
+                function increment_{id(self)}() {{
+                    // In a real app, you would use AJAX or WebSockets
+                    // to communicate with the server
+                    console.log("Increment clicked");
+                }}
+            </script>
+        </div>
+        """`}
+        language="python"
+    />
+
+    <h2 id="lifecycle-hooks">Lifecycle Hooks</h2>
+
+    <p>
+        Snakeskin components have lifecycle hooks that allow you to run code at
+        specific points:
+    </p>
+
+    <div class="overflow-x-auto my-4">
+        <table class="w-full text-left text-sm">
+            <thead class="bg-white/5 border-b border-white/10 text-neutral-200">
+                <tr>
+                    <th class="px-4 py-2">Hook</th>
+                    <th class="px-4 py-2">Description</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 text-neutral-400">
+                <tr
+                    ><td class="px-4 py-2 font-mono text-accent-primary"
+                        >before_mount</td
+                    ><td class="px-4 py-2"
+                        >Called before the component is mounted</td
+                    ></tr
+                >
+                <tr
+                    ><td class="px-4 py-2 font-mono text-accent-primary"
+                        >mounted</td
+                    ><td class="px-4 py-2"
+                        >Called after the component is mounted</td
+                    ></tr
+                >
+                <tr
+                    ><td class="px-4 py-2 font-mono text-accent-primary"
+                        >before_update</td
+                    ><td class="px-4 py-2"
+                        >Called before the component's state is updated</td
+                    ></tr
+                >
+                <tr
+                    ><td class="px-4 py-2 font-mono text-accent-primary"
+                        >updated</td
+                    ><td class="px-4 py-2"
+                        >Called after the component's state is updated</td
+                    ></tr
+                >
+                <tr
+                    ><td class="px-4 py-2 font-mono text-accent-primary"
+                        >before_unmount</td
+                    ><td class="px-4 py-2"
+                        >Called before the component is unmounted</td
+                    ></tr
+                >
+            </tbody>
+        </table>
+    </div>
+
+    <p>Example usage:</p>
+
+    <CodeBlock
+        code={`from snakeskin.framework import Component
+
+class LifecycleDemo(Component):
+    def __init__(self, **props):
+        super().__init__(**props)
+        self.state = {"data": None}
+        
+        # Register lifecycle hooks
+        self.on('mounted', self.load_data)
+        self.on('before_unmount', self.cleanup)
+    
+    def load_data(self, component):
+        # Simulate loading data
+        print("Loading data...")
+        self.set_state({"data": "Loaded data"})
+    
+    def cleanup(self, component):
+        print("Cleaning up resources...")
+    
+    def render(self):
+        data = self.state.get("data", "Loading...")
+        return f"""
+        <div>
+            <p>Data: {data}</p>
+        </div>
+        """`}
+        language="python"
+    />
+
+    <h2 id="event-handling">Event Handling</h2>
+
+    <p>You can handle events in your components:</p>
+
+    <CodeBlock
+        code={`from snakeskin.framework import Component
+
+class ClickCounter(Component):
+    def __init__(self, **props):
+        super().__init__(**props)
+        self.state = {"clicks": 0}
+    
+    def handle_click(self):
+        self.set_state({"clicks": self.state["clicks"] + 1})
+    
+    def render(self):
+        return f"""
+        <div>
+            <p>Clicks: {self.state["clicks"]}</p>
+            <button onclick="handleClick_{id(self)}()">Click me</button>
+            <script>
+                function handleClick_{id(self)}() {{
+                    // In a real app, you would use AJAX or WebSockets
+                    console.log("Button clicked");
+                }}
+            </script>
+        </div>
+        """`}
+        language="python"
+    />
+
+    <h2 id="component-composition">Component Composition</h2>
+
+    <p>You can compose components to build complex UIs:</p>
+
+    <CodeBlock
+        code={`from snakeskin.framework import Component
+from .header import Header
+from .sidebar import Sidebar
+from .content import Content
+from .footer import Footer
+
+class Layout(Component):
+    def render(self):
+        header = Header(title=self.props.get("title", "My App"))
+        sidebar = Sidebar(items=self.props.get("menu_items", []))
+        content = Content(content=self.props.get("content", ""))
+        footer = Footer(copyright=self.props.get("copyright", "© 2025"))
+        
+        return f"""
+        <div class="layout">
+            {header.render()}
+            <div class="main">
+                {sidebar.render()}
+                {content.render()}
+            </div>
+            {footer.render()}
+        </div>
+        """`}
+        language="python"
+    />
+
+    <h2 id="observers-and-reactivity">Observers and Reactivity</h2>
+
+    <p>You can observe state changes in components:</p>
+
+    <CodeBlock
+        code={`from snakeskin.framework import Component
+
+class ObservableCounter(Component):
+    def __init__(self, **props):
+        super().__init__(**props)
+        self.state = {"count": 0}
+        
+        # Add an observer to log state changes
+        self.observe(self.log_state_change)
+    
+    def log_state_change(self, state):
+        print(f"State changed: {state}")
+    
+    def increment(self):
+        self.set_state({"count": self.state["count"] + 1})
+    
+    def render(self):
+        return f"""
+        <div>
+            <p>Count: {self.state["count"]}</p>
+            <button onclick="increment_{id(self)}()">Increment</button>
+            <script>
+                function increment_{id(self)}() {{
+                    console.log("Increment clicked");
+                }}
+            </script>
+        </div>
+        """`}
+        language="python"
+    />
+
+    <h2 id="best-practices">Best Practices</h2>
+
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>
+            <strong>Keep components focused</strong>: Each component should do
+            one thing well
+        </li>
+        <li>
+            <strong>Use props for configuration</strong>: Pass configuration
+            through props
+        </li>
+        <li>
+            <strong>Minimize state</strong>: Only keep necessary state in your
+            components
+        </li>
+        <li>
+            <strong>Use lifecycle hooks appropriately</strong>: Clean up
+            resources in <code>before_unmount</code>
+        </li>
+        <li>
+            <strong>Document your components</strong>: Add docstrings to explain
+            what each component does
+        </li>
+    </ol>
+
+    <h2 id="advanced-techniques">Advanced Techniques</h2>
+
+    <h3 id="conditional-rendering">Conditional Rendering</h3>
+
+    <CodeBlock
+        code={`def render(self):
+    if self.state.get("loading"):
+        return """<div class="loading">Loading...</div>"""
+    elif self.state.get("error"):
+        return f"""<div class="error">{self.state["error"]}</div>"""
+    else:
+        return f"""<div class="content">{self.state["content"]}</div>"""`}
+        language="python"
+    />
+
+    <h3 id="list-rendering">List Rendering</h3>
+
+    <CodeBlock
+        code={`def render(self):
+    items = self.props.get("items", [])
+    items_html = ""
+    
+    for item in items:
+        items_html += f"""
+        <li class="item">{item}</li>
+        """
+    
+    return f"""
+    <ul class="item-list">
+        {items_html}
+    </ul>
+    """`}
+        language="python"
+    />
+
+    <h3 id="component-libraries">Component Libraries</h3>
+
+    <p>You can create reusable component libraries:</p>
+
+    <CodeBlock
+        code={`# ui_library/button.py
+from snakeskin.framework import Component
+
+class Button(Component):
+    def render(self):
+        variant = self.props.get("variant", "primary")
+        size = self.props.get("size", "medium")
+        text = self.props.get("text", "Button")
+        
+        class_map = {
+            "primary": "bg-blue-500 hover:bg-blue-700 text-white",
+            "secondary": "bg-gray-500 hover:bg-gray-700 text-white",
+            "danger": "bg-red-500 hover:bg-red-700 text-white"
+        }
+        
+        size_map = {
+            "small": "py-1 px-2 text-sm",
+            "medium": "py-2 px-4",
+            "large": "py-3 px-6 text-lg"
+        }
+        
+        button_class = f"{class_map.get(variant, class_map['primary'])} {size_map.get(size, size_map['medium'])} font-bold rounded"
+        
+        return f"""
+        <button class="{button_class}">
+            {text}
+        </button>
+        """`}
+        language="python"
+    />
+</DocsLayout>

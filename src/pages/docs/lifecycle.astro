@@ -1,0 +1,79 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const headings = [
+    { depth: 2, slug: "the-lifecycle-diagram", text: "The Lifecycle Diagram" },
+    { depth: 2, slug: "hooks", text: "Hooks" },
+    { depth: 3, slug: "on_mount", text: "on_mount" },
+    { depth: 3, slug: "on_update", text: "on_update" },
+    { depth: 3, slug: "on_unmount", text: "on_unmount" },
+];
+---
+
+<DocsLayout title="Component Lifecycle" headings={headings}>
+    <h1>Component Lifecycle</h1>
+
+    <p>
+        Understanding the lifecycle of a Snakeskin component is crucial for
+        managing state and side effects.
+    </p>
+
+    <h2 id="the-lifecycle-diagram">The Lifecycle Diagram</h2>
+
+    <ol class="list-decimal pl-6 space-y-2 text-neutral-300">
+        <li>
+            <strong>Initialization (<code>__init__</code>)</strong>: Props are
+            received, initial state is set.
+        </li>
+        <li>
+            <strong>Mount (<code>on_mount</code>)</strong>: Component is added
+            to the DOM.
+        </li>
+        <li>
+            <strong>Update (<code>on_update</code>)</strong>: State or props
+            change, re-render occurs.
+        </li>
+        <li>
+            <strong>Unmount (<code>on_unmount</code>)</strong>: Component is
+            removed from the DOM.
+        </li>
+    </ol>
+
+    <h2 id="hooks">Hooks</h2>
+
+    <h3 id="on_mount"><code>on_mount(self)</code></h3>
+
+    <p>Called immediately after the component is inserted into the DOM.</p>
+
+    <CodeBlock
+        code={`def on_mount(self):
+    print("Component mounted!")
+    self.fetch_data()`}
+        language="python"
+    />
+
+    <h3 id="on_update"><code>on_update(self, prev_props, prev_state)</code></h3>
+
+    <p>Called when state or props change.</p>
+
+    <CodeBlock
+        code={`def on_update(self, prev_props, prev_state):
+    if self.state['count'] != prev_state['count']:
+        print(f"Count changed to {self.state['count']}")`}
+        language="python"
+    />
+
+    <h3 id="on_unmount"><code>on_unmount(self)</code></h3>
+
+    <p>
+        Called just before component removal. Cleanup timers or subscriptions
+        here.
+    </p>
+
+    <CodeBlock
+        code={`def on_unmount(self):
+    clearInterval(self.timer)`}
+        language="python"
+    />
+</DocsLayout>

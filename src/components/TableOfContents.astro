@@ -1,0 +1,90 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+    headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+
+const filteredHeadings = headings.filter((h) => h.depth <= 3);
+---
+
+<nav class="toc-nav hidden lg:block sticky top-24 w-64 pl-4">
+    <h5 class="text-sm font-semibold text-white mb-4">On This Page</h5>
+    <ul class="space-y-1 border-l border-white/10">
+        {
+            filteredHeadings.map((heading) => (
+                <li class={`toc-item depth-${heading.depth} pl-4 relative`}>
+                    <a
+                        href={`#${heading.slug}`}
+                        class="block text-sm text-neutral-400 hover:text-accent-secondary transition-colors duration-200 py-1"
+                    >
+                        {heading.text}
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</nav>
+
+<script>
+    // Scroll Spy Logic
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                const id = entry.target.getAttribute("id");
+                if (entry.isIntersecting) {
+                    document.querySelectorAll(".toc-item a").forEach((link) => {
+                        link.classList.remove(
+                            "text-accent-primary",
+                            "font-medium",
+                        );
+                        link.classList.add("text-neutral-400");
+                    });
+                    const activeLink = document.querySelector(
+                        `.toc-item a[href="#${id}"]`,
+                    );
+                    if (activeLink) {
+                        activeLink.classList.remove("text-neutral-400");
+                        activeLink.classList.add(
+                            "text-accent-primary",
+                            "font-medium",
+                        );
+
+                        // Add active border indicator
+                        const parent = activeLink.closest(".toc-item");
+                        document
+                            .querySelectorAll(".toc-item")
+                            .forEach((item) => {
+                                item.classList.remove(
+                                    "border-l",
+                                    "border-accent-primary",
+                                    "-ml-px",
+                                );
+                            });
+                        if (parent) {
+                            parent.classList.add(
+                                "border-l",
+                                "border-accent-primary",
+                                "-ml-px",
+                            );
+                        }
+                    }
+                }
+            });
+        },
+        { rootMargin: "-100px 0px -66%" },
+    );
+
+    // Observe all headers
+    document.querySelectorAll("h2, h3").forEach((header) => {
+        observer.observe(header);
+    });
+</script>
+
+<style>
+    .depth-3 {
+        padding-left: 1.5rem;
+    }
+</style>

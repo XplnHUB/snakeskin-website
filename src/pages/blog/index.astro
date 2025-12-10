@@ -1,0 +1,122 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import { ArrowRight, Calendar, User, Clock } from "lucide-astro";
+
+const posts = [
+    {
+        title: "I Built a Frontend Framework in Python... and It's Actually Fire",
+        excerpt:
+            "Why I decided to challenge the JavaScript monopoly and how creating Snakeskin changed my perspective on web development.",
+        date: "Dec 10, 2025",
+        author: "CodeMaverick",
+        readTime: "5 min read",
+        href: "https://medium.com/@codemaverick-143/i-built-a-frontend-framework-in-python-and-its-actually-fire-0c39f0490f9d",
+        isExternal: true,
+        tags: ["Python", "Web Development", "Snakeskin"],
+    },
+];
+---
+
+<Layout title="Blog - Snakeskin">
+    <div
+        class="relative min-h-screen bg-bg-core selection:bg-neon-green/20 selection:text-white"
+    >
+        <Header />
+
+        <main class="pt-32 pb-20 px-6 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-20 animate-fade-in-up">
+                    <h1
+                        class="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-neutral-200 to-neutral-400 mb-6 tracking-tight"
+                    >
+                        Latest from the <span class="text-neon-green">Team</span
+                        >
+                    </h1>
+                    <p class="text-xl text-neutral-400 max-w-2xl mx-auto">
+                        Updates, tutorials, and deep dives into the world of
+                        Python web development.
+                    </p>
+                </div>
+
+                <div class="grid gap-8">
+                    {
+                        posts.map((post) => (
+                            <article class="group relative bg-[#0D0D0D] border border-white/5 rounded-2xl overflow-hidden hover:border-neon-green/30 transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(0,255,147,0.1)]">
+                                <div class="absolute inset-0 bg-gradient-to-br from-neon-green/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                                <div class="relative p-8 md:p-10 flex flex-col md:flex-row gap-8 items-start">
+                                    <div class="flex-1 space-y-4">
+                                        <div class="flex items-center gap-4 text-sm text-neutral-500 mb-2">
+                                            <span class="flex items-center gap-1.5">
+                                                <Calendar class="w-4 h-4" />
+                                                {post.date}
+                                            </span>
+                                            <span class="flex items-center gap-1.5">
+                                                <Clock class="w-4 h-4" />
+                                                {post.readTime}
+                                            </span>
+                                        </div>
+
+                                        <h2 class="text-3xl font-bold text-white group-hover:text-neon-green transition-colors leading-tight">
+                                            <a
+                                                href={post.href}
+                                                target={
+                                                    post.isExternal
+                                                        ? "_blank"
+                                                        : "_self"
+                                                }
+                                                rel={
+                                                    post.isExternal
+                                                        ? "noopener noreferrer"
+                                                        : ""
+                                                }
+                                                class="focus:outline-none flex items-center gap-2"
+                                            >
+                                                <span
+                                                    class="absolute inset-0"
+                                                    aria-hidden="true"
+                                                />
+                                                {post.title}
+                                                {post.isExternal && (
+                                                    <ArrowRight class="w-5 h-5 -rotate-45 inline-block" />
+                                                )}
+                                            </a>
+                                        </h2>
+
+                                        <p class="text-neutral-400 text-lg leading-relaxed">
+                                            {post.excerpt}
+                                        </p>
+
+                                        <div class="flex items-center gap-6 pt-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-8 h-8 rounded-full bg-neutral-800 flex items-center justify-center border border-white/10">
+                                                    <User class="w-4 h-4 text-neon-green" />
+                                                </div>
+                                                <span class="text-sm font-medium text-white">
+                                                    {post.author}
+                                                </span>
+                                            </div>
+
+                                            <div class="flex gap-2">
+                                                {post.tags.map((tag) => (
+                                                    <span class="text-xs px-2.5 py-1 rounded-full bg-white/5 text-neutral-400 border border-white/5">
+                                                        #{tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden md:flex items-center justify-center w-12 h-12 rounded-full border border-white/10 text-neutral-400 group-hover:border-neon-green group-hover:text-neon-green transform group-hover:translate-x-2 transition-all duration-300">
+                                        <ArrowRight class="w-5 h-5" />
+                                    </div>
+                                </div>
+                            </article>
+                        ))
+                    }
+                </div>
+            </div>
+        </main>
+    </div>
+</Layout>

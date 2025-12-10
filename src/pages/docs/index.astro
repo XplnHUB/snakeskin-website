@@ -1,0 +1,109 @@
+---
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const headings = [
+    { depth: 2, slug: "getting-started", text: "Getting Started" },
+    { depth: 2, slug: "installation", text: "Installation" },
+    { depth: 2, slug: "quick-links", text: "Quick Links" },
+];
+---
+
+<DocsLayout title="Introduction" headings={headings}>
+    <h1>Snakeskin Documentation</h1>
+
+    <p>
+        Welcome to the Snakeskin documentation! Snakeskin is a modern,
+        lightweight frontend framework for building component-based web
+        applications.
+    </p>
+
+    <h2 id="getting-started">Getting Started</h2>
+
+    <ul class="list-disc pl-6 space-y-2 text-neutral-300">
+        <li>
+            <a
+                href="/docs/getting_started"
+                class="text-accent-primary hover:underline"
+                >Getting Started Guide</a>
+        </li>
+        <li>
+            <a
+                href="/docs/component_guide"
+                class="text-accent-primary hover:underline"
+                >Component Development Guide</a>
+        </li>
+        <li>
+            <a
+                href="/docs/state_management"
+                class="text-accent-primary hover:underline"
+                >State Management Guide</a>
+        </li>
+        <li>
+            <a
+                href="/docs/styling_guide"
+                class="text-accent-primary hover:underline">Styling Guide</a>
+        </li>
+        <li>
+            <a
+                href="/docs/api_reference"
+                class="text-accent-primary hover:underline">API Reference</a>
+        </li>
+        <li>
+            <a
+                href="/docs/troubleshooting"
+                class="text-accent-primary hover:underline"
+                >Troubleshooting Guide</a>
+        </li>
+        <li>
+            <a
+                href="/docs/vercel_deployment"
+                class="text-accent-primary hover:underline"
+                >Vercel Deployment Guide</a>
+        </li>
+        <li>
+            <a
+                href="/docs/netlify_deployment"
+                class="text-accent-primary hover:underline"
+                >Netlify Deployment Guide</a>
+        </li>
+    </ul>
+
+    <h2 id="installation">Installation</h2>
+
+    <CodeBlock code="pip install snakeskin-xplnhub" language="bash" />
+
+    <p>For development features including hot reload:</p>
+
+    <CodeBlock code="pip install snakeskin-xplnhub[dev]" language="bash" />
+
+    <p>For Bootstrap integration:</p>
+
+    <CodeBlock
+        code="pip install snakeskin-xplnhub[bootstrap]"
+        language="bash"
+    />
+
+    <h2 id="quick-links">Quick Links</h2>
+
+    <ul class="list-disc pl-6 space-y-2 text-neutral-300">
+        <li>
+            <a
+                href="https://github.com/XplnHUB/xplnhub-snakeskin"
+                class="text-accent-primary hover:underline"
+                target="_blank">GitHub Repository</a>
+        </li>
+        <li>
+            <a
+                href="https://pypi.org/project/snakeskin-xplnhub/"
+                class="text-accent-primary hover:underline"
+                target="_blank">PyPI Package</a>
+        </li>
+        <li>
+            <a
+                href="https://github.com/XplnHUB/xplnhub-snakeskin/issues"
+                class="text-accent-primary hover:underline"
+                target="_blank">Issue Tracker</a>
+        </li>
+    </ul>
+</DocsLayout>

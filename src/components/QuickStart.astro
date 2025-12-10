@@ -1,0 +1,72 @@
+---
+import { Terminal, Sparkles, Play, Box } from "lucide-astro";
+
+const iconMap = {
+    terminal: Terminal,
+    sparkles: Sparkles,
+    play: Play,
+    box: Box,
+};
+
+const actions = [
+    {
+        title: "Install",
+        description: "Get the package",
+        icon: "terminal",
+        cmd: "pip install snakeskin-xplnhub",
+    },
+    {
+        title: "Create",
+        description: "Scaffold new app",
+        icon: "sparkles",
+        cmd: "snakeskin init my-app",
+    },
+    {
+        title: "Run Dev",
+        description: "Hot-reload server",
+        icon: "play",
+        cmd: "snakeskin dev",
+    },
+    {
+        title: "Build",
+        description: "Production ready",
+        icon: "box",
+        cmd: "snakeskin build",
+    },
+];
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+    {
+        actions.map((action) => {
+            const IconComponent = iconMap[action.icon as keyof typeof iconMap];
+            return (
+                <div class="group relative p-6 rounded-2xl bg-bg-surface border border-border-subtle hover:border-accent-primary/50 hover:bg-bg-surface-hover hover:-translate-y-1 transition-all duration-300">
+                    {/* Glow Effect */}
+                    <div class="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300 pointer-events-none" />
+
+                    <div class="relative z-10 flex flex-col items-start gap-4">
+                        <div class="p-3 rounded-lg bg-bg-core border border-white/5 text-accent-primary group-hover:text-white group-hover:bg-accent-primary/10 transition-colors">
+                            <IconComponent class="w-6 h-6" />
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent-primary transition-colors">
+                                {action.title}
+                            </h3>
+                            <p class="text-sm text-neutral-400 font-medium">
+                                {action.description}
+                            </p>
+                        </div>
+
+                        <div class="mt-2 w-full pt-4 border-t border-white/5">
+                            <code class="text-xs font-mono text-neutral-500 group-hover:text-accent-secondary transition-colors truncate block">
+                                $ {action.cmd}
+                            </code>
+                        </div>
+                    </div>
+                </div>
+            );
+        })
+    }
+</div>

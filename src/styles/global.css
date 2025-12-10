@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color Palette */
+  --color-bg-core: #050505;
+  --color-bg-surface: #0A0A0A;
+  --color-bg-surface-hover: #111111;
+
+  --color-border-subtle: #222222;
+  --color-border-glow: #333333;
+
+  --color-accent-primary: #00FF94;
+  --color-accent-secondary: #00E0FF;
+  --color-accent-purple: #BD00FF;
+
+  --color-text-primary: #EDEDED;
+  --color-text-muted: #888888;
+  --color-code-bg: #0D0D0D;
+
+  /* Fonts */
+  --font-sans: 'Satoshi', system-ui, sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+  --font-accent: 'Oxanium', system-ui, sans-serif;
+  --font-handwritten: 'Give You Glory', cursive;
+
+  /* Animations */
+  --animate-fade-in-up: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-pulse-slow: pulseSlow 4s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shine: shine 5s linear infinite;
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulseSlow {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes shine {
+    to {
+      background-position: 200% center;
+    }
+  }
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg-core);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background:
+    radial-gradient(circle at 15% 50%, rgba(189, 0, 255, 0.08) 0%, transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(0, 255, 148, 0.08) 0%, transparent 25%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+::selection {
+  background: var(--color-accent-primary);
+  color: black;
+}
+
+/* Typography Defaults */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+p {
+  line-height: 1.6;
+}
+
+code,
+pre {
+  font-family: var(--font-code);
+  font-variant-ligatures: none;
+}
+
+/* Specific Font Classes */
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-code {
+  font-family: var(--font-code);
+}
+
+.font-accent {
+  font-family: var(--font-accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.border-glow {
+  border: 1px solid var(--color-border-glow);
+  box-shadow: 0 0 20px -5px rgba(0, 255, 148, 0.2);
+  transition: all 0.3s ease;
+}
+
+.border-glow:hover {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 30px -5px rgba(0, 255, 148, 0.4);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: var(--animate-shine);
+}

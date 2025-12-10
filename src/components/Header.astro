@@ -1,0 +1,90 @@
+---
+import { Github } from "lucide-astro";
+---
+
+<header
+  class="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none"
+>
+  <div
+    id="nav-container"
+    class="w-full max-w-5xl h-14 flex items-center justify-between px-4 bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg transition-all duration-300 pointer-events-auto hover:border-white/20"
+  >
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 group">
+      <div
+        class="relative w-7 h-7 rounded-md overflow-hidden border border-white/10 group-hover:border-accent-primary/50 transition-colors"
+      >
+        <img
+          src="/logo.jpg"
+          alt="Snakeskin Logo"
+          class="w-full h-full object-cover"
+        />
+        <div
+          class="absolute inset-0 bg-accent-primary/20 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay"
+        >
+        </div>
+      </div>
+      <span
+        class="font-bold text-base tracking-tight text-white group-hover:text-accent-primary transition-colors"
+        >Snakeskin</span
+      >
+    </a>
+
+    <!-- Navigation -->
+    <nav class="hidden md:flex items-center gap-6">
+      <a
+        href="/docs"
+        class="text-xs font-medium text-neutral-400 hover:text-white transition-colors"
+        >Docs</a
+      >
+      <a
+        href="/docs/component_guide"
+        class="text-xs font-medium text-neutral-400 hover:text-white transition-colors"
+        >Components</a
+      >
+      <a
+        href="/blog"
+        class="text-xs font-medium text-neutral-400 hover:text-white transition-colors"
+        >Blog</a
+      >
+    </nav>
+
+    <!-- Right Actions -->
+    <div class="flex items-center gap-4">
+      <!-- Socials -->
+      <div class="flex items-center gap-3 border-l border-white/10 pl-4">
+        <a
+          href="https://github.com/XplnHUB/xplnhub-snakeskin"
+          target="_blank"
+          class="text-neutral-400 hover:text-white transition-colors"
+        >
+          <Github class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const navContainer = document.getElementById("nav-container");
+
+  if (navContainer) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 20) {
+        navContainer.classList.add(
+          "bg-black/80",
+          "border-white/20",
+          "shadow-xl",
+        );
+        navContainer.classList.remove("bg-black/50", "border-white/10");
+      } else {
+        navContainer.classList.remove(
+          "bg-black/80",
+          "border-white/20",
+          "shadow-xl",
+        );
+        navContainer.classList.add("bg-black/50", "border-white/10");
+      }
+    });
+  }
+</script>

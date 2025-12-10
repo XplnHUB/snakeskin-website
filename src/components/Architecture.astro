@@ -1,0 +1,108 @@
+---
+import { Server, Globe, Zap } from "lucide-astro";
+---
+
+<section class="py-24 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-white mb-4">How It Works</h2>
+      <p class="text-slate-400">Under the hood of the Python-to-Web engine.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      <!-- Diagram 1: Lifecycle -->
+      <div class="p-8 rounded-2xl bg-[#0F1117] border border-white/10">
+        <h3 class="text-xl font-bold text-white mb-8 text-center">
+          Component Lifecycle
+        </h3>
+
+        <div class="flex flex-col items-center gap-4">
+          <div
+            class="p-4 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 font-mono text-sm w-full text-center"
+          >
+            Python Component
+          </div>
+          <div class="text-slate-500">↓ render()</div>
+          <div
+            class="p-4 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-400 font-mono text-sm w-full text-center"
+          >
+            Virtual DOM Tree
+          </div>
+          <div class="text-slate-500">↓ diff</div>
+          <div
+            class="p-4 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-400 font-mono text-sm w-full text-center"
+          >
+            Patch List
+          </div>
+          <div class="flex w-full gap-4 items-center">
+            <div class="flex-1 text-right text-slate-500">apply patch →</div>
+            <div
+              class="p-4 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 font-mono text-sm flex-1 text-center"
+            >
+              Real DOM
+            </div>
+            <div class="flex-1 text-left text-slate-500">← events</div>
+          </div>
+          <div
+            class="p-4 rounded-lg bg-slate-800 border border-white/5 text-slate-400 font-mono text-sm w-full text-center mt-2"
+          >
+            Snakeskin JS Runtime
+          </div>
+        </div>
+      </div>
+
+      <!-- Diagram 2: SSR -->
+      <div class="p-8 rounded-2xl bg-[#0F1117] border border-white/10">
+        <h3 class="text-xl font-bold text-white mb-8 text-center">
+          SSR + Hydration
+        </h3>
+
+        <div class="relative flex justify-between items-center mt-12">
+          <!-- Server -->
+          <div
+            class="relative z-10 w-24 h-24 rounded-full bg-slate-800 border border-white/10 flex flex-col items-center justify-center shadow-2xl"
+          >
+            <div class="text-neon-green mb-1">
+              <Server size={32} />
+            </div>
+            <span class="text-xs font-bold text-slate-300">Server</span>
+          </div>
+
+          <!-- Connection Line -->
+          <div
+            class="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-green-500 -z-0"
+          >
+          </div>
+          <div
+            class="absolute top-1/2 left-1/2 -translate-y-full -translate-x-1/2 bg-[#0F1117] px-2 text-xs text-slate-500 mb-2"
+          >
+            HTML + State
+          </div>
+
+          <!-- Browser -->
+          <div
+            class="relative z-10 w-24 h-24 rounded-full bg-slate-800 border border-white/10 flex flex-col items-center justify-center shadow-2xl"
+          >
+            <div class="text-blue-400 mb-1">
+              <Globe size={32} />
+            </div>
+            <span class="text-xs font-bold text-slate-300">Browser</span>
+          </div>
+        </div>
+
+        <div class="mt-12 text-center">
+          <div
+            class="inline-flex items-center gap-2 p-2 rounded bg-black/50 border border-white/10 text-xs text-neon-green mb-2"
+          >
+            <Zap size={14} /> Hydration
+          </div>
+
+          <p class="text-sm text-slate-400">
+            Browser takes over the static HTML and attaches event listeners to
+            make it interactive instantly.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

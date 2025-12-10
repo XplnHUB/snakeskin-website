@@ -1,0 +1,90 @@
+---
+import { Copy } from "lucide-astro";
+import { Code } from "astro:components";
+
+interface Props {
+    class?: string;
+    code?: string;
+    language?: any; // strict type would be BundledLanguage from shiki, but any is safer for now to avoid messy imports
+    title?: string;
+}
+
+const { class: className, code, language = "plaintext", title } = Astro.props;
+---
+
+<div
+    class:list={[
+        "code-block relative group rounded-xl overflow-hidden border border-white/5 bg-[#0D0D0D] my-6 font-mono text-sm",
+        className,
+    ]}
+>
+    {/* Header */}
+    <div
+        class="flex justify-between items-center px-4 py-2.5 bg-white/5 border-b border-white/5"
+    >
+        <div class="flex items-center gap-2">
+            <div class="flex gap-1.5">
+                <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+            </div>
+            {
+                title && (
+                    <span class="text-xs text-neutral-400 ml-2">{title}</span>
+                )
+            }
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="text-xs text-neutral-500 uppercase">{language}</span>
+            <button
+                class="copy-btn opacity-0 group-hover:opacity-100 transition-all duration-200 text-neutral-400 hover:text-white"
+                aria-label="Copy code"
+                data-code={code}
+            >
+                <Copy class="w-4 h-4" />
+            </button>
+        </div>
+    </div>
+
+    {/* Code Content */}
+    <div class="p-4 overflow-x-auto">
+        {
+            code ? (
+                <Code code={code} lang={language} theme="github-dark" />
+            ) : (
+                <slot />
+            )
+        }
+    </div>
+</div>
+
+<script>
+    // Simple copy functionality
+    document.querySelectorAll(".code-block").forEach((block) => {
+        const btn = block.querySelector(".copy-btn");
+        const pre = block.querySelector("pre");
+
+        btn?.addEventListener("click", async () => {
+            const code = btn.getAttribute("data-code") || pre?.innerText;
+            if (code) {
+                await navigator.clipboard.writeText(code);
+
+                const originalIcon = btn.innerHTML;
+                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent-primary"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                setTimeout(() => {
+                    btn.innerHTML = originalIcon;
+                }, 2000);
+            }
+        });
+    });
+</script>
+
+<style is:global>
+    /* Override Shiki or default styles within the block */
+    .code-block pre {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+    }
+</style>

@@ -1,0 +1,99 @@
+---
+
+---
+
+<section class="py-24 bg-black/30 relative">
+    <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent pointer-events-none"
+    >
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Text Content -->
+        <div class="text-left">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                Feels like <span class="text-blue-400">Python</span>.<br />
+                Runs like the <span class="text-neon-green">Web</span>.
+            </h2>
+            <p class="text-lg text-slate-400 mb-8 leading-relaxed">
+                Define components as Python classes. Use <code
+                    class="text-neon-green bg-white/5 px-2 py-0.5 rounded"
+                    >render()</code
+                > to return declarative UI structures. We handle the efficient DOM
+                updates and state management for you.
+            </p>
+            <a
+                href="#"
+                class="inline-flex items-center gap-2 text-neon-green font-bold hover:gap-3 transition-all"
+            >
+                Read Full Documentation
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    ><path
+                        fill-rule="evenodd"
+                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path></svg
+                >
+            </a>
+        </div>
+
+        <!-- Code Showcase -->
+        <div class="relative group">
+            <div
+                class="absolute -inset-1 bg-gradient-to-r from-neon-green to-blue-600 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"
+            >
+            </div>
+
+            <div
+                class="relative rounded-xl bg-[#0F1117] border border-white/10 overflow-hidden shadow-2xl"
+            >
+                <!-- Tabs -->
+                <div
+                    class="flex items-center border-b border-white/5 bg-white/5"
+                >
+                    <div
+                        class="px-4 py-3 text-sm font-medium text-white border-b-2 border-neon-green bg-white/5"
+                    >
+                        Counter.py
+                    </div>
+                    <div
+                        class="px-4 py-3 text-sm font-medium text-slate-500 hover:text-slate-300 cursor-pointer transition-colors"
+                    >
+                        App.py
+                    </div>
+                    <div
+                        class="px-4 py-3 text-sm font-medium text-slate-500 hover:text-slate-300 cursor-pointer transition-colors"
+                    >
+                        Styles.css
+                    </div>
+                </div>
+
+                <!-- Code Block -->
+                <div
+                    class="p-6 overflow-x-auto text-sm font-mono leading-relaxed"
+                >
+                    <pre><code class="language-python"><span class="text-pink-400">class</span> <span class="text-yellow-300">Counter</span><span class="text-white">(Component):</span>
+    <span class="text-pink-400">def</span> <span class="text-blue-400">on_init</span><span class="text-white">(self):</span>
+        <span class="text-slate-500"># Initialize component state</span>
+        <span class="text-slate-300">self.state = &#123;<span class="text-green-300">"count"</span>: <span class="text-purple-400">0</span>&#125;</span>
+
+    <span class="text-pink-400">def</span> <span class="text-blue-400">increment</span><span class="text-white">(self):</span>
+        <span class="text-slate-300">self.state[<span class="text-green-300">"count"</span>] += <span class="text-purple-400">1</span></span>
+
+    <span class="text-pink-400">def</span> <span class="text-blue-400">render</span><span class="text-white">(self):</span>
+        <span class="text-pink-400">return</span> <span class="text-yellow-300">Div</span>(
+            <span class="text-yellow-300">H1</span>(<span class="text-green-300">f"Count: &#123;self.state['count']&#125;"</span>),
+            <span class="text-yellow-300">Button</span>(
+                <span class="text-green-300">"Increment"</span>, 
+                <span class="text-orange-300">on_click</span>=<span class="text-slate-300">self.increment</span>,
+                <span class="text-orange-300">class_name</span>=<span class="text-green-300">"btn-primary"</span>
+            )
+        )</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
